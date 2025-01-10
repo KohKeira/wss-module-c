@@ -33,7 +33,6 @@ const noResult = document.getElementById("noResult");
 const paginate = document.querySelector(".paginate");
 const [getQuestions, setQuestions] = useState([]);
 const [getFilteredQuestions, setFilteredQuestions] = useState([]);
-const [getCodes, setCodes] = useState([]);
 const [getPage, setPage] = useState(1);
 let totalPage = 0;
 let maxPerPage = 8;
@@ -54,12 +53,9 @@ const loadAllFiles = async () => {
   try {
     let fileList = await fetchFile("./README.txt");
     fileList = fileList.trim().split("\r\n");
-    let codeList = [];
     let questionList = [];
     for (const file of fileList) {
-      if (file.startsWith("code/")) {
-        codeList.push(file);
-      } else {
+      if (file.startsWith("question/")) {
         questionList.push(file);
       }
     }
@@ -72,7 +68,6 @@ const loadAllFiles = async () => {
 
     setQuestions(questionList);
     setFilteredQuestions(questionList);
-    setCodes(codeList);
   } catch (error) {
     console.error(error.message);
   }
@@ -90,7 +85,9 @@ const loadQuestionsTable = () => {
       content += `   
     <tr>
       <td>${i + 1}</td>
-      <td><a href="statement.html?title=${q.split('/')[1]}">${titleCase}</a></td>
+      <td><a href="statement.html?title=${
+        q.split("/")[1]
+      }">${titleCase}</a></td>
     </tr>
 `;
     });

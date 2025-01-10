@@ -1,0 +1,16 @@
+#metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+h1 {
+  margin-bottom: 10px;
+}
+.exampleDiv {
+  margin: 20px 0;
+}
+.exampleContent{
+    border: 2px solid green;
+    padding: 20px 10px;
+    margin-top: 10px;
+}

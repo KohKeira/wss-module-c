@@ -90,7 +90,7 @@ const loadQuestionsTable = () => {
       content += `   
     <tr>
       <td>${i + 1}</td>
-      <td><a href="">${titleCase}</a></td>
+      <td><a href="statement.html?title=${q.split('/')[1]}">${titleCase}</a></td>
     </tr>
 `;
     });

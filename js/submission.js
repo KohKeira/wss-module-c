@@ -40,7 +40,7 @@ const getTitleCase = (word) => {
 
 let submissions = [];
 const submissionsContainer = document.querySelector(".submissionsContainer");
-const titleDiv = document.getElementById("title")
+const titleDiv = document.getElementById("title");
 let detailsDivList;
 
 const loadSubmissions = async () => {
@@ -75,7 +75,7 @@ const displaySubmissions = async (submissions) => {
     let name = getTitleCase(submissionArray[1]);
     let time = submissionArray[2].split("-");
     let [test, ...fileContent] = await loadFileContent(s);
-
+    console.log(fileContent[0]);
     content += `
     <div>
     <p onclick='toggleDetails(${id})'>
@@ -83,8 +83,7 @@ const displaySubmissions = async (submissions) => {
     </p>
     <div class='submission-details'>
     ${displayTestCases(test)}
-    <pre class='code'>
-    ${fileContent.join("\r\n")}
+    <pre class='code'>${fileContent.join("\n")}
     </pre>
     </div>
     </div>
@@ -128,10 +127,9 @@ const displayTestCases = (test) => {
 };
 const toggleDetails = (id) => {
   if (!detailsDivList) {
-    console.log("test");
     detailsDivList = document.querySelectorAll(".submission-details");
   }
-  console.log(detailsDivList[id].computedStyleMap().get("display")=='none');
+  console.log(detailsDivList[id].computedStyleMap().get("display") == "none");
   if (detailsDivList[id].computedStyleMap().get("display") == "none") {
     detailsDivList[id].style.display = "block";
   } else {

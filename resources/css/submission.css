@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-top: 20px;
 }
 .submissionsContainer p{
     font-size: 18px;
+    cursor: pointer;
 }
 .submission-details{
     display: none;
@@ -17,7 +19,7 @@
   gap: 10px;
 }
 .test {
-  border: 2px #aaa solid;
+  border: 2px #555 solid;
   border-radius: 50%;
   height: 50px;
   width: 50px;

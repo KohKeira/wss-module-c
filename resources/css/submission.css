@@ -1,0 +1,34 @@
+.submissionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.submissionsContainer p{
+    font-size: 18px;
+}
+.submission-details{
+    display: none;
+}
+.testCases {
+  max-width: 550px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  margin: 20px 0;
+  gap: 10px;
+}
+.test {
+  border: 2px #aaa solid;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+.green {
+  background-color: green;
+}
+.red {
+  background-color: red;
+}
+.code {
+  border: 2px solid blue;
+  padding: 10px;
+}

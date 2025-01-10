@@ -11,6 +11,7 @@
     <main>
       <h1>Questions</h1>
       <input type="text" name="search" id="searchInput" placeholder="Search here..." oninput="debounceSearch(event)">
+      <div id="noResult">No matching results</div>
       <table id="questionTable">
         <thead>
           <tr>
@@ -25,6 +26,14 @@
           </tr>
         </tbody>
       </table>
+      <div class="paginate">
+        <button type="button" class="paginate-btn">First</button>
+        <button type="button" class="paginate-btn">Previous</button>
+        <div id="pageButtons"></div>
+        <button type="button" class="paginate-btn">Next</button>
+        <button type="button" class="paginate-btn">Last</button>
+    </div>
     </main>
+   
   </body>
 </html>

@@ -30,3 +30,23 @@ table td {
   border: 1px solid #ddd;
   padding: 5px;
 }
+.paginate {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginate-btn {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+}
+
+.paginate-btn:disabled {
+  background-color: #eee;
+}
+.noResult{
+    display: none;
+}

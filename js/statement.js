@@ -33,9 +33,11 @@ const loadStatement = async () => {
   try {
     let content = await fetchFile("question/" + title);
     if (title.endsWith(".html")) {
-      // directly show the html content
 
+      // directly show the html content
       document.querySelector("html").innerHTML = content;
+
+      // display link to show submissions
       linkDiv = document.createElement("div");
       linkDiv.classList.add("link");
       document.body.appendChild(linkDiv)
@@ -63,6 +65,8 @@ const displayStatement = (content) => {
       } else if (dataArray[0] === "Description") {
         descriptionDiv.innerText = dataArray[1];
       } else {
+
+        // special formatting for field name that contains '_'
         if (dataArray[0].includes("_")) {
           metaContent += `
             <p>${getTitleCase(dataArray[0])}: ${dataArray[1]}</p>
@@ -82,10 +86,10 @@ const displayStatement = (content) => {
   metadataDiv.innerHTML += metaContent;
 
   // load problem and example
-
   let problemContent = "";
   let problemData = contentArray[1].trim().split("\r\n");
-  //   console.log(problemdata);
+
+
   let exampleCount = 1;
   for (let i = 0; i < problemData.length; i++) {
     const data = problemData[i];

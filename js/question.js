@@ -8,6 +8,7 @@ const useState = (initial) => {
 };
 
 const getTitleCase = (word) => {
+  // remove any file extensions or directories and capitalise first character of each word
   let cleanTitle = word.split("/")[1];
   cleanTitle = cleanTitle.split(".")[0];
   cleanTitle = cleanTitle.split("-");
@@ -31,6 +32,7 @@ const debounce = (fn) => {
 
 const noResult = document.getElementById("noResult");
 const paginate = document.querySelector(".paginate");
+const questionTable = document.getElementById("questionTable");
 const [getQuestions, setQuestions] = useState([]);
 const [getFilteredQuestions, setFilteredQuestions] = useState([]);
 const [getPage, setPage] = useState(1);
@@ -53,17 +55,22 @@ const loadAllFiles = async () => {
   try {
     let fileList = await fetchFile("./README.txt");
     fileList = fileList.trim().split("\r\n");
+
+    // retrieve file path for all quesitons
     let questionList = [];
     for (const file of fileList) {
       if (file.startsWith("question/")) {
         questionList.push(file);
       }
     }
+
+    // sort questions by lexicographical order
     questionList.sort((a, b) => {
       if (a.toLowerCase() > b.toLowerCase()) {
         return 1;
       } else return -1;
     });
+
     totalPage = Math.ceil(questionList.length / maxPerPage);
 
     setQuestions(questionList);
@@ -74,9 +81,13 @@ const loadAllFiles = async () => {
 };
 
 const loadQuestionsTable = () => {
+
   const questionTableBody = document.getElementById("questionTableBody");
   let content = "";
   let startIndex = (getPage() - 1) * maxPerPage;
+
+  // display only titles containing the search value (if any)
+  // display pages for paginated data
   getFilteredQuestions()
     .slice(startIndex, startIndex + 8)
     .forEach((q, i) => {
@@ -91,12 +102,16 @@ const loadQuestionsTable = () => {
     </tr>
 `;
     });
+
+  // show 
   if (content === "") {
     noResult.style.display = "block";
     paginate.style.display = "none";
+    questionTable.style.display = "none";
   } else {
     noResult.style.display = "none";
     paginate.style.display = "flex";
+    questionTable.style.display = "table";
   }
   questionTableBody.innerHTML = content;
 };
@@ -134,6 +149,8 @@ const loadPagination = () => {
 };
 
 const loadInitialPagination = () => {
+
+  // click on buttons to move to first, previous, next and last page
   let paginate = document.querySelectorAll(".paginate-btn");
   paginate = [...paginate];
   paginate[0].addEventListener("click", () => {
@@ -149,6 +166,7 @@ const loadInitialPagination = () => {
     setPage(getPage() + 1);
   });
 };
+
 const disablePaginationButton = () => {
   let paginate = document.querySelectorAll(".paginate-btn");
   paginate = [...paginate];

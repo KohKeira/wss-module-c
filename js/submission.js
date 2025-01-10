@@ -58,6 +58,7 @@ const loadSubmissions = async () => {
         submissions.push(file);
       }
     }
+    // order submissions, with latest first
     submissions = sortByTime(submissions);
     console.log(submissions);
     displaySubmissions(submissions);
@@ -105,6 +106,7 @@ const loadFileContent = async (s) => {
 };
 
 const displayTestCases = (test) => {
+  // show number of circles depending on number of test cases passed and not completed
   let testCase = test.split(": ")[1];
   let totalCorrect = testCase.split("/")[0];
   let totalNotTest =
@@ -129,7 +131,7 @@ const toggleDetails = (id) => {
   if (!detailsDivList) {
     detailsDivList = document.querySelectorAll(".submission-details");
   }
-  console.log(detailsDivList[id].computedStyleMap().get("display") == "none");
+  // show details of submissions if not displayed
   if (detailsDivList[id].computedStyleMap().get("display") == "none") {
     detailsDivList[id].style.display = "block";
   } else {

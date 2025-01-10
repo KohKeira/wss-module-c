@@ -7,8 +7,8 @@ const useState = (initial) => {
   return [() => state, setState];
 };
 
-const getTitleCase = (wordArray) => {
-  let cleanTitle = wordArray.split("/")[1];
+const getTitleCase = (word) => {
+  let cleanTitle = word.split("/")[1];
   cleanTitle = cleanTitle.split(".")[0];
   cleanTitle = cleanTitle.split("-");
   let titleCase = [];
@@ -19,7 +19,18 @@ const getTitleCase = (wordArray) => {
   return titleCase;
 };
 
+const debounce = (fn) => {
+  let debounceId;
+  return function (...args) {
+    clearTimeout(debounceId);
+    debounceId = setTimeout(() => {
+      fn(...args);
+    }, 400);
+  };
+};
+
 const [getQuestions, setQuestions] = useState([]);
+const [getFilteredQuestions, setFilteredQuestions] = useState([]);
 const [getCodes, setCodes] = useState([]);
 const fetchFile = async (url) => {
   try {
@@ -53,6 +64,7 @@ const loadAllFiles = async () => {
     });
     console.log(questionList);
     setQuestions(questionList);
+    setFilteredQuestions(questionList);
     setCodes(codeList);
   } catch (error) {
     console.error(error.message);
@@ -62,7 +74,7 @@ const loadAllFiles = async () => {
 const loadQuestionsTable = () => {
   const questionTableBody = document.getElementById("questionTableBody");
   let content = "";
-  getQuestions().forEach((q, i) => {
+  getFilteredQuestions().forEach((q, i) => {
     let titleCase = getTitleCase(q);
 
     content += `   
@@ -72,10 +84,34 @@ const loadQuestionsTable = () => {
     </tr>
 `;
   });
+
   questionTableBody.innerHTML = content;
+};
+
+const handleSearch = (e) => {
+  console.log(e.target.value);
+  let search = e.target.value.toLowerCase();
+
+  //search subsequence and substring
+
+  let filtered = getQuestions().filter((a) => {
+    const title = getTitleCase(a).toLowerCase();
+    console.log(title);
+    let count = 0;
+    for (const char of title) {
+      if (char === search[count]) {
+        count++;
+      }
+      if (count === search.length) return true;
+    }
+    return false;
+  });
+  setFilteredQuestions(filtered);
 };
 
 const render = () => {
   loadQuestionsTable();
 };
+
+const debounceSearch = debounce(handleSearch);
 loadAllFiles();

@@ -10,7 +10,8 @@
   <body>
     <main>
       <h1>Questions</h1>
-      <table>
+      <input type="text" name="search" id="searchInput" placeholder="Search here..." oninput="debounceSearch(event)">
+      <table id="questionTable">
         <thead>
           <tr>
             <th>No.</th>

@@ -15,11 +15,18 @@ main {
   flex-direction: column;
   gap: 20px;
 }
-table{
-    border-collapse: collapse;
+input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
 }
-table th, table td{
-    text-align: start;
-    border: 1px solid #ddd;
-    padding: 5px;
+
+table {
+  border-collapse: collapse;
+}
+table th,
+table td {
+  text-align: start;
+  border: 1px solid #ddd;
+  padding: 5px;
 }
